@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "tsc",
-    "run" : "node dist/index.js"
+    "build": "tsc",
+    "run": "node dist/index.js",
+    "br": "npm run build && npm run run"
   },
   "author": "Andrew Hathaway <andrew@andrewhathaway.net>",
   "license": "MIT",
@@ -14,6 +15,10 @@
     "npmvet": "./dist/index.js"
   },
   "devDependencies": {
-    "typescript": "^2.1.5"
+    "typescript": "^2.1.5",
+    "typings": "^2.1.0"
+  },
+  "dependencies": {
+    "blessed": "^0.1.81"
   }
 }
