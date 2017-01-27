@@ -1,0 +1,5 @@
+{
+  "globalDependencies": {
+    "semver": "registry:dt/semver#5.3.0+20160803221903"
+  }
+}
