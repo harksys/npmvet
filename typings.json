@@ -4,6 +4,7 @@
     "semver": "registry:dt/semver#5.3.0+20160803221903"
   },
   "dependencies": {
-    "blessed": "registry:dt/blessed#0.1.5+20160915014424"
+    "blessed": "registry:dt/blessed#0.1.5+20160915014424",
+    "commander": "registry:dt/commander#2.3.0+20161118092844"
   }
 }

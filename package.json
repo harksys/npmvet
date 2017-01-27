@@ -19,6 +19,7 @@
     "typings": "^2.1.0"
   },
   "dependencies": {
-    "blessed": "^0.1.81"
+    "blessed": "^0.1.81",
+    "commander": "^2.9.0"
   }
 }
