@@ -1,0 +1,11 @@
+{
+  "name": "npmvet",
+  "version": "1.0.0",
+  "description": "A simple CLI tool for vetting installed package versions versus defined versions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Hathaway <andrew@andrewhathaway.net>",
+  "license": "MIT"
+}
