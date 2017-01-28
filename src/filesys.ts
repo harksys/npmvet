@@ -15,5 +15,10 @@ export function fileExists(path: string): boolean
  */
 export function folderExists(path: string): boolean
 {
-  return fs.lstatSync(path).isDirectory();
+  try {
+    return fs.lstatSync(path)
+             .isDirectory();
+  } catch(e) {
+    return false;
+  }
 };
