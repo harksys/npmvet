@@ -8,8 +8,9 @@ import * as program from 'commander';
 export function getCLIOptions(prog: program.ICommand): ICLIOpts
 {
   let opts: ICLIOpts = {
-    package : prog['package'],
-    modules : prog['modules']
+    package  : prog['package'],
+    modules  : prog['modules'],
+    renderer : prog['renderer']
   };
 
   return opts;

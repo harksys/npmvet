@@ -4,7 +4,7 @@ import * as concat from 'lodash/concat';
 /**
  * @param  {IPackageDescriptorMap} depMap
  */
-export function render(depMap: IPackageDescriptorMap)
+export const render: IRenderer = (depMap) =>
 {
   const screen = blessed.screen({
     smartCSR : true,

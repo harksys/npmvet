@@ -13,7 +13,7 @@ import {
 } from './cliopts';
 
 import vet from './vet';
-import { render as blessedRenderer } from './renderers/blessed';
+import { getRenderer } from './renderers/index';
 
 /*
  * Setup the CLI args
@@ -21,12 +21,13 @@ import { render as blessedRenderer } from './renderers/blessed';
 program
   .version('1.0.0')
   .option('-p, --package <package>', 'package.json file location', '')
-  .option('-m, --modules <modules>', 'node_modules folder location', '');
+  .option('-m, --modules <modules>', 'node_modules folder location', '')
+  .option('-r, --renderer <renderer>', 'Renderer to use', 'blessed');
 
 /*
  * Setup the paths using the CLI options and
  * validate that the package.json file and
- * node_modules folder exists
+ * node_modules folder exists.
  */
 const opts  = getCLIOptions(program.parse(process.argv));
 const paths = makeVetPaths(opts);
@@ -40,6 +41,11 @@ if (!folderExists(paths.modulesPath)) {
 }
 
 /*
+ * Get the renderer we'll use
+ */
+let renderer = getRenderer(opts.renderer);
+
+/*
  * Require the package.json file
  */
 const packageFile = require(paths.packagePath);
@@ -48,4 +54,4 @@ const packageFile = require(paths.packagePath);
  * Create the package descriptor map and render
  */
 let map = vet(packageFile, paths.modulesPath);
-blessedRenderer(map);
+renderer(map);
