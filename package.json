@@ -1,7 +1,7 @@
 {
   "name": "npmvet",
   "version": "1.0.0",
-  "description": "A simple CLI tool for vetting installed package versions versus defined versions.",
+  "description": "CLI tool for vetting npm package versions",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
