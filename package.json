@@ -9,6 +9,10 @@
     "run": "node dist/index.js",
     "br": "npm run build && npm run run"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:harksys/HawkEye.git"
+  },
   "author": "Andrew Hathaway <andrew@andrewhathaway.net>",
   "license": "MIT",
   "bin": {
