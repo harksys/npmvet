@@ -4,7 +4,7 @@
   "description": "A simple CLI tool for vetting installed package versions versus defined versions.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc",
     "run": "node dist/index.js",
     "br": "npm run build && npm run run"
@@ -18,7 +18,33 @@
   "bin": {
     "npmvet": "./dist/index.js"
   },
+  "jest" : {
+    "transform": {
+      ".*": "./test/preprocessor.js"
+    },
+    "unmockedModulePathPatterns" : [
+      "lodash",
+      "semver"
+    ],
+    "resetModules" : true,
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "testPathDirs": [
+      "./test/tests"
+    ],
+    "testRegex": "^.*.(js)$",
+    "globals": {
+      "SRC_DIRECTORY": "<rootDir>/src/"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "collectCoverage": true
+  },
   "devDependencies": {
+    "jest": "^18.1.0",
     "typescript": "^2.1.5",
     "typings": "^2.1.0"
   },
