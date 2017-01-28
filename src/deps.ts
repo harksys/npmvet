@@ -35,6 +35,19 @@ export function toDependencies(object: {}): IDependency[]
 };
 
 /**
+ * @param  {string} version
+ * @returns string
+ */
+export function parseVersion(version: string): string
+{
+  if (!/^[~^]/.test(version)) {
+    return version;
+  }
+
+  return version.substring(1);
+};
+
+/**
  * @param  {IDependency} dep
  * @returns IPackageDescriptor
  */
@@ -43,7 +56,7 @@ export function dependencyToPackageDescriptor(dep: IDependency): IPackageDescrip
   let packageDescriptor: IPackageDescriptor = {
     name                 : dep.name,
     definedVersion       : dep.version,
-    parsedDefinedVersion : '',
+    parsedDefinedVersion : parseVersion(dep.version),
     installedVersion     : null,
     installed            : false,
     locked               : semver.clean(dep.version) !== null

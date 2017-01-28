@@ -76,7 +76,7 @@ function createRows(pkgDescriptor: IPackageDescriptor[]): string[][]
 {
   return pkgDescriptor.map(pkg => ([
     pkg.name,
-    pkg.definedVersion,
+    pkg.parsedDefinedVersion,
     pkg.installedVersion,
     (pkg.parsedDefinedVersion !== pkg.installedVersion
       ? '{red-bg} Mismatch {/red-bg}'
