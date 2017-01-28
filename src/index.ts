@@ -12,6 +12,9 @@ import {
   getCLIOptions
 } from './cliopts';
 
+import vet from './vet';
+import { render as blessedRenderer } from './renderers/blessed';
+
 /*
  * Setup the CLI args
  */
@@ -36,3 +39,13 @@ if (!folderExists(paths.modulesPath)) {
   throw new Error(`Cannot find node_modules file at ${paths.packagePath}`);
 }
 
+/*
+ * Require the package.json file
+ */
+const packageFile = require(paths.packagePath);
+
+/*
+ * Create the package descriptor map and render
+ */
+let map = vet(packageFile, paths.modulesPath);
+blessedRenderer(map);
