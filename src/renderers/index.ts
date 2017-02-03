@@ -1,7 +1,9 @@
-import { render as blessedRenderer} from './blessed';
+import { render as blessedRenderer } from './blessed';
+import { render as inlineTableRenderer } from './inlinetable';
 
 const renderers: { [name: string]: IRenderer } = {
-  BLESSED : blessedRenderer
+  BLESSED     : blessedRenderer,
+  INLINETABLE : inlineTableRenderer
 };
 
 /**
