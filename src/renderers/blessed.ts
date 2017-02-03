@@ -72,9 +72,8 @@ export const render: IRenderer = (depMap) =>
  * @param  {IPackageDescriptor[]} pkgDescriptor
  * @returns string
  */
-function createRows(pkgDescriptor: IPackageDescriptor[]): string[][]
-{
-  return pkgDescriptor.map(pkg => ([
+let createRows = (pkgDescriptor: IPackageDescriptor[]): string[][] =>
+  pkgDescriptor.map(pkg => ([
     pkg.name,
     pkg.parsedDefinedVersion,
     pkg.installedVersion,
@@ -85,4 +84,3 @@ function createRows(pkgDescriptor: IPackageDescriptor[]): string[][]
       ? '{green-bg}  Locked  {/green-bg}'
       : '{red-bg} Unlocked {/red-bg}')
   ]));
-};
