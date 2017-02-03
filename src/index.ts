@@ -22,7 +22,7 @@ program
   .version('1.0.0')
   .option('-p, --package <package>', 'package.json file location', '')
   .option('-m, --modules <modules>', 'node_modules folder location', '')
-  .option('-r, --renderer <renderer>', 'Renderer to use', 'blessed');
+  .option('-r, --renderer <renderer>', 'Renderer to use', 'inlinetable');
 
 /*
  * Setup the paths using the CLI options and
