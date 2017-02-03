@@ -9,9 +9,9 @@ export const render: IRenderer = (depMap) =>
    */
   let rows = [[
     chalk.bold('Name'),
-    chalk.bold('Defined Version'),
+    chalk.bold('Package Version'),
     chalk.bold('Installed Version'),
-    chalk.bold('Matching'),
+    chalk.bold('Status'),
     chalk.bold('Locked')
   ]];
 
