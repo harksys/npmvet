@@ -1,9 +1,11 @@
+import { render as ciRenderer } from './ci';
 import { render as blessedRenderer } from './blessed';
 import { render as inlineTableRenderer } from './inlinetable';
 
 const renderers: { [name: string]: IRenderer } = {
   BLESSED     : blessedRenderer,
-  INLINETABLE : inlineTableRenderer
+  INLINETABLE : inlineTableRenderer,
+  CI          : ciRenderer
 };
 
 /**
