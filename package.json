@@ -18,15 +18,15 @@
   "bin": {
     "npmvet": "./dist/index.js"
   },
-  "jest" : {
+  "jest": {
     "transform": {
       ".*": "./test/preprocessor.js"
     },
-    "unmockedModulePathPatterns" : [
+    "unmockedModulePathPatterns": [
       "lodash",
       "semver"
     ],
-    "resetModules" : true,
+    "resetModules": true,
     "modulePaths": [
       "<rootDir>/src/"
     ],
@@ -50,7 +50,9 @@
   },
   "dependencies": {
     "blessed": "^0.1.81",
+    "chalk": "^1.1.3",
     "commander": "^2.9.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "table": "^4.0.1"
   }
 }

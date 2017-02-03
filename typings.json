@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "blessed": "registry:dt/blessed#0.1.5+20160915014424",
+    "chalk": "registry:npm/chalk#1.1.1+20160812215109",
     "commander": "registry:dt/commander#2.3.0+20161118092844",
     "lodash": "registry:npm/lodash#4.0.0+20161015015725"
   }
