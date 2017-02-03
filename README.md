@@ -4,7 +4,7 @@ NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can 
 
 ## Installation
 
-    npm install npmvet -g
+    $ npm install npmvet -g
 
 ## Usage
 
@@ -24,7 +24,7 @@ Renderers are used to dictate how to output the data NPM Vet collects. The defau
 
 ### Inline Table
 
-    npmvet -r inlinetable
+    $ npmvet -r inlinetable
 
 The default renderer, `inlinetable` will print a table inline with your current process. You can use this locally to visualise package differences.
 
@@ -32,7 +32,7 @@ The default renderer, `inlinetable` will print a table inline with your current 
 
 ### CI
 
-    npmvet -r ci
+    $ npmvet -r ci
 
 If you plan on using NPM Vet with a CI build, to ensure that builds on pass if package verisons match, then use this option.
 It will fail a build if any mismatches are found:
@@ -47,7 +47,7 @@ Or if there are no mismatches, your build will continue:
 
 The `blessed` renderer will render a table inside a screen, that has be exited by the user to escape.
 
-    npmvet -r blessed
+    $ npmvet -r blessed
 
 ![](./.github/blessed.png?raw=true)
 
