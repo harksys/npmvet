@@ -1,19 +1,20 @@
 {
   "name": "npmvet",
   "version": "1.0.0",
-  "description": "CLI tool for vetting npm package versions",
+  "description": "A simple CLI tool for vetting npm package versions",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "build": "tsc",
     "run": "node dist/index.js",
-    "br": "npm run build && npm run run"
+    "br": "npm run build && npm run run",
+    "prepublish": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:harksys/HawkEye.git"
+    "url": "git@github.com:harksys/npmvet.git"
   },
-  "author": "Andrew Hathaway <andrew@andrewhathaway.net>",
+  "author": "Andrew Hathaway <andrew@harksys.com>",
   "license": "MIT",
   "bin": {
     "npmvet": "./dist/index.js"
