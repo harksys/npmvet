@@ -49,7 +49,7 @@ The `blessed` renderer will render a table inside a screen, that has be exited b
 
     npmvet -r blessed
 
-![](./.github/npmvet.png?raw=true)
+![](./.github/blessed.png?raw=true)
 
 ## Contributing
 
