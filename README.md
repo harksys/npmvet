@@ -20,7 +20,7 @@ NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can 
 
 ## Renderers
 
-Renderers are used to dictate how to output the data NPM Vet collects. The default is "inlinetable".
+Renderers are used to dictate how to output the data NPM Vet collects. The default is `inlinetable`.
 
 ### Inline Table
 
