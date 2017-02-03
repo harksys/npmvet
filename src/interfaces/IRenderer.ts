@@ -1,5 +1,5 @@
 
 interface IRenderer
 {
-  (depMap: IPackageDescriptorMap): void;
+  (depMap: IPackageDescriptorMap, cliOpts?: ICLIOpts): void;
 };

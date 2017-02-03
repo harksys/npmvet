@@ -54,4 +54,4 @@ const packageFile = require(paths.packagePath);
  * Create the package descriptor map and render
  */
 let map = vet(packageFile, paths.modulesPath);
-renderer(map);
+renderer(map, opts);
