@@ -23,7 +23,7 @@ export const render: IRenderer = (depMap) =>
    * render the table and a nice message
    */
   if (!hasMismatches) {
-    console.log(chalk.bold.bgGreen(' NPM Vet: No mismatching package versions \n'));
+    console.log(chalk.bold.bgGreen(' NPM Vet: No mismatched package versions \n'));
 
     inlineTableRenderer(depMap);
     process.exit(0);
@@ -39,7 +39,7 @@ export const render: IRenderer = (depMap) =>
                               : 'package';
 
   console.log(chalk.bold.bgRed(` NPM Vet: You have ${mismatchingLength} ${phrase} `
-                               + `with mismatching versions \n`));
+                               + `with mismatched versions \n`));
 
   inlineTableRenderer(filtered);
   process.exit(1);
