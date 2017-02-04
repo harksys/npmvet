@@ -15,11 +15,13 @@ import {
 import vet from './vet';
 import { getRenderer } from './renderers/index';
 
+const vetPkgFile = require('../package.json');
+
 /*
  * Setup the CLI args
  */
 program
-  .version('1.0.0')
+  .version(vetPkgFile.version)
   .option('-p, --package <package>', 'package.json file location', '')
   .option('-m, --modules <modules>', 'node_modules folder location', '')
   .option('-r, --renderer <renderer>', 'Renderer to use', 'inlinetable');
