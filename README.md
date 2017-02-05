@@ -1,6 +1,6 @@
 ![](./.github/banner.png?raw=true)
 
-NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can be used locally, or as a CI build-step to prevent builds passing with mismatched package versions. To read more about NPM Vet, visit the [Hark website](https://harksys.com/labs/npm-vet-a-simple-cli-tool-for-vetting-npm-package-versions).
+NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can be used locally, or as a CI build-step to prevent builds passing with mismatched package versions. To read more about NPM Vet, visit the [Hark website](https://harksys.com/labs/npm-vet-a-simple-cli-tool-for-checking-npm-package-versions).
 
 ## Installation
 
