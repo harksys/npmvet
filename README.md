@@ -1,6 +1,6 @@
 ![](./.github/banner.png?raw=true)
 
-NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can be used in development, or as a CI tool to prevent builds passing with mismatching package versions.
+NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can be used locally, or as a CI build-step to prevent builds passing with mismatched package versions. To read more about NPM Vet, visit the [Hark website](https://harksys.com/labs/npm-vet-a-simple-cli-tool-for-vetting-npm-package-versions).
 
 ## Installation
 
@@ -34,12 +34,11 @@ The default renderer, `inlinetable` will print a table inline with your current 
 
     $ npmvet -r ci
 
-If you plan on using NPM Vet with a CI build, to ensure that builds on pass if package verisons match, then use this option.
-It will fail a build if any mismatches are found:
+To prevent your CI builds passing with mismatched package versions, use the CI renderer. If any package version mismatches are found, the build will fail:
 
 ![](./.github/ci-error.png?raw=true)
 
-Or if there are no mismatches, your build will continue:
+Or if there are no mismatching package versions, your build will continue (and hopefully pass!):
 
 ![](./.github/ci-success.png?raw=true)
 
