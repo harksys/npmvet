@@ -1,6 +1,6 @@
 import { table } from 'table';
 import * as chalk from 'chalk';
-import * as concat from 'lodash/concat';
+import { concat } from 'lodash';
 
 export const render: IRenderer = (depMap) =>
 {
