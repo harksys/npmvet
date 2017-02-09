@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as semver from 'semver';
-import * as get from 'lodash/get';
+import { get } from 'lodash';
 
 import { fileExists } from './filesys';
 

@@ -1,5 +1,5 @@
 import * as blessed from 'blessed';
-import * as concat from 'lodash/concat';
+import { concat } from 'lodash';
 
 /**
  * @param  {IPackageDescriptorMap} depMap

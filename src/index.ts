@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-///<reference path="../typings/index.d.ts" />
 
 import * as program from 'commander';
 
