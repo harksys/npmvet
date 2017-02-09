@@ -12,12 +12,6 @@ efforts and conversations.
 $ npm install
 ```
 
-- Install typing definitions.
-
-```bash
-$ typings install
-```
-
 - Make your changes and build, then run the app. This command wil build and run the tool.
 
 ```bash
