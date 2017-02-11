@@ -23,3 +23,4 @@ let createMatchInfos = (pkgDescriptor: IPackageDescriptor[]): IPackageMatchInfo[
     matches: pkg.parsedDefinedVersion !== pkg.installedVersion,
     locked: pkg.locked
   }));
+  
