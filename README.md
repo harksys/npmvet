@@ -53,6 +53,37 @@ The `blessed` renderer will render a table inside a screen, that has be exited b
 
 ![](./.github/blessed.png?raw=true)
 
+### JSON
+The `JSON` renderer will print a JSON array with a match info for each package
+
+    $ npmvet -r json
+
+```json
+[
+  {
+    "name": "blessed",
+    "packageVersion": "0.1.81",
+    "installedVersion": "0.1.81",
+    "matches": false,
+    "locked": false
+  },
+  {
+    "name": "chalk",
+    "packageVersion": "1.1.3",
+    "installedVersion": "1.1.3",
+    "matches": false,
+    "locked": false
+  },
+  {
+    "name": "jest",
+    "packageVersion": "18.1.0",
+    "installedVersion": "18.1.0",
+    "matches": false,
+    "locked": false
+  }
+]
+```
+
 ## Contributing
 
 For information regarding contributing to this project, please read the [Contributing](./CONTRIBUTING.md) document.
