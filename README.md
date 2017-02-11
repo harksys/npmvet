@@ -1,5 +1,8 @@
 ![](./.github/banner.png?raw=true)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/e6e1rgx0i853jg8b/branch/master?svg=true)](https://ci.appveyor.com/project/andrewhathaway/npmvet/branch/master)
+
+
 NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can be used locally, or as a CI build-step to prevent builds passing with mismatched package versions. To read more about NPM Vet, visit the [Hark website](https://harksys.com/labs/npm-vet-a-simple-cli-tool-for-checking-npm-package-versions).
 
 ## Installation
