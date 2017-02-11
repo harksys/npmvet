@@ -8,7 +8,7 @@ export const render: IRenderer = (depMap) =>
 {
   const screen = blessed.screen({
     smartCSR : true,
-    title    : 'npmvet'
+    title    : 'NPM Vet'
   });
 
   /*
