@@ -6,9 +6,19 @@ export const render: IRenderer = (depMap) =>
   const allPackages = depMap.deps.concat(depMap.devDeps);
 
   /*
-   * Print the JSON
+   * Generate match info for each package
    */
-  console.log(JSON.stringify(createMatchInfos(allPackages), undefined, 2));
+  const packageMatchInfos = createMatchInfos(allPackages);
+
+  /*
+   * Generate indented JSON string
+   */
+  const output = JSON.stringify(packageMatchInfos, undefined, 2)
+
+  /*
+   * Print the JSON string
+   */
+  console.log(output);
 };
 
 /**
@@ -23,4 +33,3 @@ let createMatchInfos = (pkgDescriptor: IPackageDescriptor[]): IPackageMatchInfo[
     matches: pkg.parsedDefinedVersion !== pkg.installedVersion,
     locked: pkg.locked
   }));
-  
