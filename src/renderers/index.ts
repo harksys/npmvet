@@ -1,11 +1,13 @@
 import { render as ciRenderer } from './ci';
 import { render as blessedRenderer } from './blessed';
 import { render as inlineTableRenderer } from './inlinetable';
+import { render as jsonRenderer } from './json';
 
 const renderers: { [name: string]: IRenderer } = {
   BLESSED     : blessedRenderer,
   INLINETABLE : inlineTableRenderer,
-  CI          : ciRenderer
+  CI          : ciRenderer,
+  JSON        : jsonRenderer
 };
 
 /**
