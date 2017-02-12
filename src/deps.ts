@@ -120,3 +120,13 @@ export function packageDescriptorMapCheckInstall(map: IPackageDescriptorMap,
 
   return newMap;
 };
+
+/**
+ * @param  {string} version
+ * @param  {string} expected
+ * @returns boolean
+ */
+export function isMatchingVersion(version: string, expected: string): boolean
+{
+  return version === expected;
+};
