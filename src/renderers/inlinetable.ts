@@ -2,6 +2,8 @@ import { table } from 'table';
 import * as chalk from 'chalk';
 import { concat } from 'lodash';
 
+import { isMatchingVersion } from '../deps';
+
 export const render: IRenderer = (depMap) =>
 {
   /*
@@ -35,7 +37,7 @@ let createRows = (pkgDescriptor: IPackageDescriptor[]): string[][] =>
     pkg.name,
     pkg.parsedDefinedVersion,
     pkg.installedVersion,
-    (pkg.parsedDefinedVersion !== pkg.installedVersion
+    (!isMatchingVersion(pkg.parsedDefinedVersion, pkg.installedVersion)
       ? chalk.bold.bgRed(' Mismatch ')
       : chalk.bold.bgGreen(' Matching ')),
     (pkg.locked

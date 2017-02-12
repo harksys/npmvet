@@ -2,6 +2,8 @@ import * as chalk from 'chalk';
 import * as pluralize from 'pluralize';
 import { render as inlineTableRenderer } from './inlinetable';
 
+import { isMatchingVersion } from '../deps';
+
 export const render: IRenderer = (depMap) =>
 {
   /*
@@ -50,4 +52,4 @@ export const render: IRenderer = (depMap) =>
  * @returns IPackageDescriptor
  */
 let filterMatchingDependencies = (deps: IPackageDescriptor[]): IPackageDescriptor[] =>
-  deps.filter(d => d.parsedDefinedVersion !== d.installedVersion);
+  deps.filter(d => !isMatchingVersion(d.parsedDefinedVersion, d.installedVersion));

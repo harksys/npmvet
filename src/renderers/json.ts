@@ -1,3 +1,5 @@
+import { isMatchingVersion } from '../deps';
+
 export const render: IRenderer = (depMap) =>
 {
   /*
@@ -26,10 +28,10 @@ export const render: IRenderer = (depMap) =>
  * @returns {IPackageMatchInfo[]}
  */
 let createMatchInfos = (pkgDescriptor: IPackageDescriptor[]): IPackageMatchInfo[] =>
-  pkgDescriptor.map(pkg => ({    
-    name: pkg.name,
-    packageVersion: pkg.parsedDefinedVersion,
-    installedVersion: pkg.installedVersion,
-    matches: pkg.parsedDefinedVersion === pkg.installedVersion,
-    locked: pkg.locked
+  pkgDescriptor.map(pkg => ({
+    name             : pkg.name,
+    packageVersion   : pkg.parsedDefinedVersion,
+    installedVersion : pkg.installedVersion,
+    matches          : isMatchingVersion(pkg.parsedDefinedVersion, pkg.installedVersion),
+    locked           : pkg.locked
   }));
