@@ -54,7 +54,7 @@ The `blessed` renderer will render a table inside a screen, that has be exited b
 ![](./.github/blessed.png?raw=true)
 
 ### JSON
-The `JSON` renderer will print a JSON array with a match info for each package
+The `JSON` renderer will print a JSON array with match information for each package.
 
     $ npmvet -r json
 
