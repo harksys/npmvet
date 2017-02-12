@@ -64,21 +64,21 @@ The `JSON` renderer will print a JSON array with match information for each pack
     "name": "blessed",
     "packageVersion": "0.1.81",
     "installedVersion": "0.1.81",
-    "matches": false,
+    "matches": true,
     "locked": false
   },
   {
     "name": "chalk",
     "packageVersion": "1.1.3",
     "installedVersion": "1.1.3",
-    "matches": false,
+    "matches": true,
     "locked": false
   },
   {
     "name": "jest",
     "packageVersion": "18.1.0",
     "installedVersion": "18.1.0",
-    "matches": false,
+    "matches": true,
     "locked": false
   }
 ]

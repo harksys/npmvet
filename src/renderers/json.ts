@@ -30,6 +30,6 @@ let createMatchInfos = (pkgDescriptor: IPackageDescriptor[]): IPackageMatchInfo[
     name: pkg.name,
     packageVersion: pkg.parsedDefinedVersion,
     installedVersion: pkg.installedVersion,
-    matches: pkg.parsedDefinedVersion !== pkg.installedVersion,
+    matches: pkg.parsedDefinedVersion === pkg.installedVersion,
     locked: pkg.locked
   }));
