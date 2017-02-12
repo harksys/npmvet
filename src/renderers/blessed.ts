@@ -1,6 +1,8 @@
 import * as blessed from 'blessed';
 import { concat } from 'lodash';
 
+import { isMatchingVersion } from '../deps';
+
 /**
  * @param  {IPackageDescriptorMap} depMap
  */
@@ -77,7 +79,7 @@ let createRows = (pkgDescriptor: IPackageDescriptor[]): string[][] =>
     pkg.name,
     pkg.parsedDefinedVersion,
     pkg.installedVersion,
-    (pkg.parsedDefinedVersion !== pkg.installedVersion
+    (!isMatchingVersion(pkg.parsedDefinedVersion, pkg.installedVersion)
       ? '{red-bg} Mismatch {/red-bg}'
       : '{green-bg} Matching {/green-bg}'),
     (pkg.locked
