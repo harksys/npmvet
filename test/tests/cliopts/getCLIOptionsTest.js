@@ -19,7 +19,8 @@ describe('cliopts.getCLIOptions', () =>
     var expected = {
       package  : 'Cady',
       modules  : 'Regina',
-      renderer : 'Gretchen'
+      renderer : 'Gretchen',
+      strict   : false
     };
 
     expect(cliopts.getCLIOptions(input)).toEqual(expected);
