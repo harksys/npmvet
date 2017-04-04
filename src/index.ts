@@ -23,7 +23,8 @@ program
   .version(vetPkgFile.version)
   .option('-p, --package <package>', 'package.json file location', '')
   .option('-m, --modules <modules>', 'node_modules folder location', '')
-  .option('-r, --renderer <renderer>', 'Renderer to use', 'inlinetable');
+  .option('-r, --renderer <renderer>', 'Renderer to use', 'inlinetable')
+  .option('-s, --strict', 'Using the CI renderer, fail build if any packages unlocked');
 
 /*
  * Setup the paths using the CLI options and

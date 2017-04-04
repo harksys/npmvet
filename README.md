@@ -20,6 +20,11 @@ NPM Vet is a simple CLI tool to help vet your npm package versions. NPM Vet can 
       -p, --package <package>    package.json file location (Default: .)
       -m, --modules <modules>    node_modules folder location (Default: .)
       -r, --renderer <renderer>  Renderer to use (Default: inlinetable)
+      -s, --strict               Using the CI renderer, fail build if any packages unlocked (Default: false, flag)
+
+## Strict Mode
+
+If you're using the CI renderer (see below) the `-s` flag will enable strict mode. In which builds will fail if versions are unlocked, not just unmatching.
 
 ## Renderers
 
