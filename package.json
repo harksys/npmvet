@@ -1,6 +1,6 @@
 {
   "name": "npmvet",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A simple CLI tool for vetting npm package versions",
   "main": "dist/index.js",
   "scripts": {
