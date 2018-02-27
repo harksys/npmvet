@@ -74,11 +74,11 @@ export function dependencyToPackageDescriptor(dep: IDependency): IPackageDescrip
 {
   let packageDescriptor: IPackageDescriptor = {
     name                 : dep.name,
-    definedVersion       : dep.version,
+    definedVersion       : extractVersionFromUrl(dep.version),
     parsedDefinedVersion : parseVersion(dep.version),
     installedVersion     : null,
     installed            : false,
-    locked               : semver.clean(dep.version) !== null
+    locked               : semver.clean(extractVersionFromUrl(dep.version)) !== null
   };
 
   return packageDescriptor;
