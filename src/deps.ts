@@ -40,12 +40,31 @@ export function toDependencies(object: {}): IDependency[]
  */
 export function parseVersion(version: string): string
 {
-  if (!/^[~^]/.test(version)) {
-    return version;
+  if (/^[~^]/.test(version)) {
+    return version.substring(1);
   }
 
-  return version.substring(1);
+  return extractVersionFromUrl(version);
 };
+
+/**
+ * @param  {string} version
+ * @returns string
+ */
+export function extractVersionFromUrl(version: string) : string
+{
+  const regex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
+  if (regex.test(version)) {
+    var i = version.indexOf('.git#v');
+    if (i > 0) {
+      return version.substring(i+6);
+    }
+    else {
+      return 'unknown';
+    }
+  }
+  return version;
+}
 
 /**
  * @param  {IDependency} dep
