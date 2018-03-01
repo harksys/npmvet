@@ -40,6 +40,7 @@ export function toDependencies(object: {}): IDependency[]
  */
 export function parseVersion(version: string): string
 {
+  // Tests for whether the version starts with ~ (tilde) or ^ (caret)
   if (/^[~^]/.test(version)) {
     return version.substring(1);
   }
@@ -53,14 +54,16 @@ export function parseVersion(version: string): string
  */
 export function extractVersionFromUrl(version: string) : string
 {
+  // Regex for checking whether this version references a git ssh url
   const regex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
   if (regex.test(version)) {
+    // If a version number is present, then return that version number, else return 'Unknown'
     var i = version.indexOf('.git#v');
     if (i > 0) {
       return version.substring(i+6);
     }
     else {
-      return 'unknown';
+      return 'Unknown';
     }
   }
   return version;

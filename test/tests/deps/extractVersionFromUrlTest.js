@@ -8,7 +8,7 @@ describe('deps.extractVersionFromUrlTest', () =>
     var deps = require(SRC_DIRECTORY + '/deps');
 
     expect(deps.extractVersionFromUrl('git+ssh://git@git.testing.abc:test-group/testmodule.git#v1.3.2')).toBe('1.3.2');
-    expect(deps.extractVersionFromUrl('git+ssh://git@git.testing.abc:test-group/testmodule.git')).toBe('unknown');
+    expect(deps.extractVersionFromUrl('git+ssh://git@git.testing.abc:test-group/testmodule.git')).toBe('Unknown');
   });
 
 });

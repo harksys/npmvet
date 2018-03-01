@@ -11,7 +11,7 @@ describe('deps.parseVersion', () =>
     expect(deps.parseVersion('~1.0.0')).toBe('1.0.0');
     expect(deps.parseVersion('^1.0.0')).toBe('1.0.0');
     expect(deps.parseVersion('git+ssh://git@git.testing.abc:test-group/testmodule.git#v1.0.0')).toBe('1.0.0');
-    expect(deps.parseVersion('git+ssh://git@git.testing.abc:test-group/testmodule.git')).toBe('unknown');
+    expect(deps.parseVersion('git+ssh://git@git.testing.abc:test-group/testmodule.git')).toBe('Unknown');
   });
 
 });
