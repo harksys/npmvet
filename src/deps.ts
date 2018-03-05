@@ -40,12 +40,34 @@ export function toDependencies(object: {}): IDependency[]
  */
 export function parseVersion(version: string): string
 {
-  if (!/^[~^]/.test(version)) {
-    return version;
+  // Tests for whether the version starts with ~ (tilde) or ^ (caret)
+  if (/^[~^]/.test(version)) {
+    return version.substring(1);
   }
 
-  return version.substring(1);
+  return extractVersionFromUrl(version);
 };
+
+/**
+ * @param  {string} version
+ * @returns string
+ */
+export function extractVersionFromUrl(version: string) : string
+{
+  // Regex for checking whether this version references a git ssh url
+  const regex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
+  if (regex.test(version)) {
+    // If a version number is present, then return that version number, else return 'Unknown'
+    var i = version.indexOf('.git#v');
+    if (i > 0) {
+      return version.substring(i+6);
+    }
+    else {
+      return 'Unknown';
+    }
+  }
+  return version;
+}
 
 /**
  * @param  {IDependency} dep
@@ -55,11 +77,11 @@ export function dependencyToPackageDescriptor(dep: IDependency): IPackageDescrip
 {
   let packageDescriptor: IPackageDescriptor = {
     name                 : dep.name,
-    definedVersion       : dep.version,
+    definedVersion       : extractVersionFromUrl(dep.version),
     parsedDefinedVersion : parseVersion(dep.version),
     installedVersion     : null,
     installed            : false,
-    locked               : semver.clean(dep.version) !== null
+    locked               : semver.clean(extractVersionFromUrl(dep.version)) !== null
   };
 
   return packageDescriptor;
