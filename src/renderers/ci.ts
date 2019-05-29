@@ -34,15 +34,15 @@ export const render: IRenderer = (depMap, cliOpts) =>
    * render the table and a nice message
    */
   if (!cliOpts.strict && !hasMismatches) {
-    sendSuccessResponse(depMap, ' NPM Vet: No mismatched package versions ');
+    return sendSuccessResponse(depMap, ' NPM Vet: No mismatched package versions ');
   }
 
   /*
    * If we're in strict mode, and nothing is unlocked,
    * then render the table and a nice message.
    */
-  if (cliOpts.strict && !hasUnlocked) {
-    sendSuccessResponse(depMap, ' NPM Vet: No unlocked packages or mismatched package versions ');
+  if (cliOpts.strict && !hasMismatches && !hasUnlocked) {
+    return sendSuccessResponse(depMap, ' NPM Vet: No unlocked packages or mismatched package versions ');
   }
 
   /*
@@ -59,11 +59,11 @@ export const render: IRenderer = (depMap, cliOpts) =>
 
   /*
    * Render an error message and a table with only
-   * the mismatching verisons shown if any mismatches
+   * the mismatching versions shown if any mismatches
    * are there.
    */
   if (mismatchingLength > 0) {
-    sendErrorResponse(filteredMatching, ` NPM Vet: You have ${mismatchingLength} ${phrase} `
+    return sendErrorResponse(filteredMatching, ` NPM Vet: You have ${mismatchingLength} ${phrase} `
                                         + `with mismatched versions `);
   }
 
@@ -71,7 +71,7 @@ export const render: IRenderer = (depMap, cliOpts) =>
    * We must be in strict mode with some unlocked
    * packages, lets fail.
    */
-  sendErrorResponse(filteredUnlocked, ` NPM Vet: You have ${unlockedLength} ${phrase} `
+  return sendErrorResponse(filteredUnlocked, ` NPM Vet: You have ${unlockedLength} ${phrase} `
                                         + `that are currently unlocked versions `);
 };
 
