@@ -58,12 +58,17 @@ export function extractVersionFromUrl(version: string) : string
   const regex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
   if (regex.test(version)) {
     // If a version number is present, then return that version number, else return 'Unknown'
-    var i = version.indexOf('.git#v');
-    if (i > 0) {
-      return version.substring(i+6);
+
+    // get the last group which is the #versionspec at the end
+    let lastGroup = version.match(regex)[4];
+    if(!lastGroup) {
+      return "Unknown"; //no #versionspec
     }
-    else {
-      return 'Unknown';
+    let versionTag = lastGroup.replace('#', ''); //strip off the '#'
+    if (versionTag.indexOf('v') == 0) {
+      return versionTag.substring(1); //strip off the leading 'v' if present
+    } else {
+      return versionTag;
     }
   }
   return version;
