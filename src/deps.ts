@@ -4,6 +4,11 @@ import { get } from 'lodash';
 
 import { fileExists } from './filesys';
 
+  // Regex for checking whether this version references a git ssh url
+const urlRegex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
+  // Regex for checking whether this version references an alias
+const npmAliasRegex = /npm:.*@([\^\~]?[0-9]+(\.?[0-9]?)+)/
+
 /**
  * @param  {string} packageJsonPath
  * @returns IDependencyMap
@@ -40,6 +45,15 @@ export function toDependencies(object: {}): IDependency[]
  */
 export function parseVersion(version: string): string
 {
+  if (npmAliasRegex.test(version)) {
+    let i = 0
+    if (/^.*[~^].*$/.test(version)) {
+      i = version.indexOf('~') > 0 ? version.indexOf('~') : version.indexOf('^')
+    } else {
+      i =  version.lastIndexOf('@')
+    }
+    return version.substring(i + 1)
+  }
   // Tests for whether the version starts with ~ (tilde) or ^ (caret)
   if (/^[~^]/.test(version)) {
     return version.substring(1);
@@ -54,9 +68,7 @@ export function parseVersion(version: string): string
  */
 export function extractVersionFromUrl(version: string) : string
 {
-  // Regex for checking whether this version references a git ssh url
-  const regex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
-  if (regex.test(version)) {
+  if (urlRegex.test(version)) {
     // If a version number is present, then return that version number, else return 'Unknown'
     var i = version.indexOf('.git#v');
     if (i > 0) {
@@ -65,6 +77,9 @@ export function extractVersionFromUrl(version: string) : string
     else {
       return 'Unknown';
     }
+  } else if (npmAliasRegex.test(version)) {
+    let i =  version.lastIndexOf('@')
+    return version.substring(i + 1)
   }
   return version;
 }
