@@ -1,6 +1,6 @@
 {
-  "name": "npmvet",
-  "version": "0.1.5",
+  "name": "@francis.tec/npmvet",
+  "version": "0.1.6",
   "description": "A simple CLI tool for vetting npm package versions",
   "main": "dist/index.js",
   "scripts": {
