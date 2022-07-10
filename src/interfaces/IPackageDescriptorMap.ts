@@ -1,7 +1,4 @@
-
-interface IPackageDescriptorMap
-{
+interface IPackageDescriptorMap {
   deps: IPackageDescriptor[];
-
   devDeps: IPackageDescriptor[];
-};
+}

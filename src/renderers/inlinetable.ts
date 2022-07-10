@@ -4,8 +4,7 @@ import { concat } from 'lodash';
 
 import { isMatchingVersion } from '../deps';
 
-export const render: IRenderer = (depMap) =>
-{
+export const render: IRenderer = (depMap) => {
   /*
    * Define the table headers
    */

@@ -1,4 +1,3 @@
-
 /**
  * filename
  *
@@ -8,7 +7,7 @@
  * @param  string path File path
  * @return string      file name
  */
-module.exports = function(path) {
-  return path.split('/')
-             .pop();
-};
+module.exports = (path) =>
+  path
+    .split('/')
+    .pop();

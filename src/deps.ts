@@ -1,45 +1,45 @@
 import * as path from 'path';
 import * as semver from 'semver';
-import { get } from 'lodash';
 
 import { fileExists } from './filesys';
+
+// Regex for checking whether this version references a git ssh url
+const urlRegex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
+// Regex for checking whether this version references an alias
+const npmAliasRegex = /npm:.*@([\^\~]?[0-9]+(\.?[0-9]?)+)/
 
 /**
  * @param  {string} packageJsonPath
  * @returns IDependencyMap
  */
-export function createDependencyMap(packageFile: any): IDependencyMap
-{
-  let deps    = get(packageFile, `dependencies`, {});
-  let devDeps = get(packageFile, `devDependencies`, {});
+export const createDependencyMap = (packageFile: any): IDependencyMap => {
+  let deps = packageFile?.dependencies ?? {};
+  let devDeps = packageFile?.devDependencies ?? {};
 
-  let dependencyMap: IDependencyMap = {
-    deps    : toDependencies(deps),
-    devDeps : toDependencies(devDeps)
+  return {
+    deps: toDependencies(deps),
+    devDeps: toDependencies(devDeps)
   };
-
-  return dependencyMap;
 };
 
 /**
  * @param  {{}} object
  * @returns IDependency
  */
-export function toDependencies(object: {}): IDependency[]
-{
-  return Object.keys(object)
-               .map(packageName => ({
-                 name    : packageName,
-                 version : object[packageName]
-               }));
-};
+export const toDependencies = (object: {}): IDependency[] =>
+  Object
+    .keys(object)
+    .map(packageName =>
+      ({
+        name: packageName,
+        version: object[packageName]
+      }));
 
 /**
  * @param  {string} version
  * @returns string
  */
-export function parseVersion(version: string): string
-{
+export const parseVersion = (version: string): string => {
   // Tests for whether the version starts with ~ (tilde) or ^ (caret)
   if (/^[~^]/.test(version)) {
     return version.substring(1);
@@ -52,55 +52,58 @@ export function parseVersion(version: string): string
  * @param  {string} version
  * @returns string
  */
-export function extractVersionFromUrl(version: string) : string
-{
-  // Regex for checking whether this version references a git ssh url
-  const regex = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/
-  if (regex.test(version)) {
-    // If a version number is present, then return that version number, else return 'Unknown'
-    var i = version.indexOf('.git#v');
-    if (i > 0) {
-      return version.substring(i+6);
-    }
-    else {
-      return 'Unknown';
-    }
+export const extractVersionFromUrl = (version: string): string => {
+  const npmAliasVersion = extractNpmAliasVersion(version);
+  if (npmAliasVersion !== null) {
+    return npmAliasVersion;
   }
-  return version;
+
+  if (!urlRegex.test(version)) {
+    return version.indexOf('workspace:') === 0
+      ? version.replace('workspace:', '')
+      : version;
+  }
+
+  // Gett the last group which is the #versionspec at the end
+  let lastGroup = version.match(urlRegex)[4];
+  if (!lastGroup) {
+    return 'Unknown';
+  }
+
+  let versionTag = lastGroup.replace('#', ''); //strip off the '#'
+  return versionTag.indexOf('v') === 0
+    ? versionTag.substring(1) //strip off the leading 'v' if present
+    : versionTag;
 }
 
 /**
  * @param  {IDependency} dep
  * @returns IPackageDescriptor
  */
-export function dependencyToPackageDescriptor(dep: IDependency): IPackageDescriptor
-{
-  let packageDescriptor: IPackageDescriptor = {
-    name                 : dep.name,
-    definedVersion       : extractVersionFromUrl(dep.version),
-    parsedDefinedVersion : parseVersion(dep.version),
-    installedVersion     : null,
-    installed            : false,
-    locked               : semver.clean(extractVersionFromUrl(dep.version)) !== null
-  };
+export const dependencyToPackageDescriptor = (dep: IDependency): IPackageDescriptor => {
+  const b = ({
+    name: dep.name,
+    definedVersion: extractVersionFromUrl(dep.version),
+    parsedDefinedVersion: parseVersion(dep.version),
+    installedVersion: null,
+    installed: false,
+    locked: semver.clean(extractVersionFromUrl(dep.version)) !== null
+  });
 
-  return packageDescriptor;
-};
+  return b;
+}
 
 /**
  * @param  {IDependencyMap} depMap
  * @returns IPackageDescriptorMap
  */
-export function dependencyMapToPackageDescriptorMap(depMap: IDependencyMap): IPackageDescriptorMap
-{
+export const dependencyMapToPackageDescriptorMap = (depMap: IDependencyMap): IPackageDescriptorMap => {
   let { deps, devDeps } = depMap;
 
-  let map: IPackageDescriptorMap = {
-    deps    : deps.map(dependencyToPackageDescriptor),
-    devDeps : devDeps.map(dependencyToPackageDescriptor)
+  return {
+    deps: deps.map(dependencyToPackageDescriptor),
+    devDeps: devDeps.map(dependencyToPackageDescriptor)
   };
-
-  return map;
 };
 
 /**
@@ -108,18 +111,19 @@ export function dependencyMapToPackageDescriptorMap(depMap: IDependencyMap): IPa
  * @param  {string} modulesPath
  * @returns IPackageDescriptor
  */
-export function packageDescriptorCheckInstall(descriptor: IPackageDescriptor,
-                                              modulesPath: string): IPackageDescriptor
-{
+export const packageDescriptorCheckInstall = (
+  descriptor: IPackageDescriptor,
+  modulesPath: string
+): IPackageDescriptor => {
   const packagePath = path.resolve(modulesPath, descriptor.name, 'package.json');
-  const installed   = fileExists(packagePath);
+  const installed = fileExists(packagePath);
 
   if (!installed) {
     return descriptor;
   }
 
   const pkg = require(packagePath);
-  descriptor.installed        = true;
+  descriptor.installed = true;
   descriptor.installedVersion = pkg.version;
 
   return descriptor;
@@ -130,17 +134,16 @@ export function packageDescriptorCheckInstall(descriptor: IPackageDescriptor,
  * @param  {string} modulesPath
  * @returns IPackageDescriptorMap
  */
-export function packageDescriptorMapCheckInstall(map: IPackageDescriptorMap,
-                                                 modulesPath: string): IPackageDescriptorMap
-{
+export const packageDescriptorMapCheckInstall = (
+  map: IPackageDescriptorMap,
+  modulesPath: string
+): IPackageDescriptorMap =>  {
   let { deps, devDeps } = map;
 
-  let newMap: IPackageDescriptorMap = {
-    deps    : deps.map(m => packageDescriptorCheckInstall(m, modulesPath)),
-    devDeps : devDeps.map(m => packageDescriptorCheckInstall(m, modulesPath)),
+  return {
+    deps: deps.map(m => packageDescriptorCheckInstall(m, modulesPath)),
+    devDeps: devDeps.map(m => packageDescriptorCheckInstall(m, modulesPath)),
   };
-
-  return newMap;
 };
 
 /**
@@ -148,7 +151,21 @@ export function packageDescriptorMapCheckInstall(map: IPackageDescriptorMap,
  * @param  {string} expected
  * @returns boolean
  */
-export function isMatchingVersion(version: string, expected: string): boolean
-{
-  return version === expected;
-};
+export const isMatchingVersion = (version: string, expected: string): boolean =>
+  version === expected;
+
+/**
+ * @param  {string} version
+ * @returns string
+ */
+const extractNpmAliasVersion = (version: string): string => {
+  if (!npmAliasRegex.test(version)) {
+    return null;
+  }
+
+  const i = /^.*[~^].*$/.test(version)
+    ? version.indexOf('~') > 0 ? version.indexOf('~') : version.indexOf('^')
+    : version.lastIndexOf('@');
+
+  return version.substring(i + 1);
+}
