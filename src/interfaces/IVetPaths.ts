@@ -1,7 +1,4 @@
-
-interface IVetPaths
-{
+interface IVetPaths {
   packagePath: string;
-
   modulesPath: string;
 };

@@ -4,19 +4,18 @@ import { render as inlineTableRenderer } from './inlinetable';
 
 import { isMatchingVersion } from '../deps';
 
-export const render: IRenderer = (depMap, cliOpts) =>
-{
+export const render: IRenderer = (depMap, cliOpts) => {
   /*
    * Filter packages to only the ones where versions mismatch
    */
   const filteredMatching: IPackageDescriptorMap = {
-    deps    : filterMatchingDependencies(depMap.deps),
-    devDeps : filterMatchingDependencies(depMap.devDeps)
+    deps: filterMatchingDependencies(depMap.deps),
+    devDeps: filterMatchingDependencies(depMap.devDeps)
   };
 
   const filteredUnlocked: IPackageDescriptorMap = {
-    deps : filterLockedDependencies(depMap.deps),
-    devDeps : filterLockedDependencies(depMap.devDeps)
+    deps: filterLockedDependencies(depMap.deps),
+    devDeps: filterLockedDependencies(depMap.devDeps)
   };
 
 
@@ -24,25 +23,25 @@ export const render: IRenderer = (depMap, cliOpts) =>
    * Do we have any mismatches or unlocked?
    */
   const hasMismatches = filteredMatching.deps.length > 0
-                          || filteredMatching.devDeps.length > 0;
+    || filteredMatching.devDeps.length > 0;
 
   const hasUnlocked = filteredUnlocked.deps.length > 0
-                        || filteredUnlocked.devDeps.length > 0;
+    || filteredUnlocked.devDeps.length > 0;
 
   /*
    * We have no mismatching packages, so lets
    * render the table and a nice message
    */
   if (!cliOpts.strict && !hasMismatches) {
-    sendSuccessResponse(depMap, ' NPM Vet: No mismatched package versions ');
+    return sendSuccessResponse(depMap, ' NPM Vet: No mismatched package versions ');
   }
 
   /*
    * If we're in strict mode, and nothing is unlocked,
    * then render the table and a nice message.
    */
-  if (cliOpts.strict && !hasUnlocked) {
-    sendSuccessResponse(depMap, ' NPM Vet: No unlocked packages or mismatched package versions ');
+  if (cliOpts.strict && !hasMismatches && !hasUnlocked) {
+    return sendSuccessResponse(depMap, ' NPM Vet: No unlocked packages or mismatched package versions ');
   }
 
   /*
@@ -51,11 +50,11 @@ export const render: IRenderer = (depMap, cliOpts) =>
    * in strict mode.
    */
   const mismatchingLength = filteredMatching.deps.length + filteredMatching.devDeps.length;
-  const unlockedLength    = filteredUnlocked.deps.length + filteredUnlocked.devDeps.length;
+  const unlockedLength = filteredUnlocked.deps.length + filteredUnlocked.devDeps.length;
 
   const phrase = mismatchingLength > 1
-                  ? pluralize('package')
-                  : 'package';
+    ? pluralize('package')
+    : 'package';
 
   /*
    * Render an error message and a table with only
@@ -63,24 +62,27 @@ export const render: IRenderer = (depMap, cliOpts) =>
    * are there.
    */
   if (mismatchingLength > 0) {
-    sendErrorResponse(filteredMatching, ` NPM Vet: You have ${mismatchingLength} ${phrase} `
-                                        + `with mismatched versions `);
+    return sendErrorResponse(
+      filteredMatching,
+      ` NPM Vet: You have ${mismatchingLength} ${phrase} with mismatched versions `
+    );
   }
 
   /*
    * We must be in strict mode with some unlocked
    * packages, lets fail.
    */
-  sendErrorResponse(filteredUnlocked, ` NPM Vet: You have ${unlockedLength} ${phrase} `
-                                        + `that are currently unlocked versions `);
+  return sendErrorResponse(
+    filteredUnlocked,
+    ` NPM Vet: You have ${unlockedLength} ${phrase} that are currently unlocked versions `
+  );
 };
 
 /**
  * @param  {IPackageDescriptorMap} depMap
  * @param  {string} message
  */
-let sendSuccessResponse = (depMap: IPackageDescriptorMap, message: string) =>
-{
+let sendSuccessResponse = (depMap: IPackageDescriptorMap, message: string) => {
   console.log(chalk.bold.bgGreen(message));
 
   inlineTableRenderer(depMap);
@@ -91,8 +93,7 @@ let sendSuccessResponse = (depMap: IPackageDescriptorMap, message: string) =>
  * @param  {IPackageDescriptorMap} filteredMatching
  * @param  {string} message
  */
-let sendErrorResponse = (filteredMatching: IPackageDescriptorMap, message: string) =>
-{
+let sendErrorResponse = (filteredMatching: IPackageDescriptorMap, message: string) => {
   console.log(chalk.bold.bgRed(message));
 
   inlineTableRenderer(filteredMatching);

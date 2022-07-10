@@ -1,7 +1,4 @@
-
-interface IDependencyMap
-{
+interface IDependencyMap {
   deps: IDependency[];
-
   devDeps: IDependency[];
-};
+}

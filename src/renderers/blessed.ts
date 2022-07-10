@@ -6,38 +6,37 @@ import { isMatchingVersion } from '../deps';
 /**
  * @param  {IPackageDescriptorMap} depMap
  */
-export const render: IRenderer = (depMap) =>
-{
+export const render: IRenderer = (depMap) => {
   const screen = blessed.screen({
-    smartCSR : true,
-    title    : 'NPM Vet'
+    smartCSR: true,
+    title: 'NPM Vet'
   });
 
   /*
    * Setup the table
    */
   const table = blessed.listtable({
-    parent : screen,
-    name   : 'npmvet table',
+    parent: screen,
+    name: 'npmvet table',
 
-    tags : true,
-    vi   : false,
+    tags: true,
+    vi: false,
 
-    left   : 0,
-    border : 'line',
-    align  : 'center',
-    width  : '100%',
-    height : '100%',
+    left: 0,
+    border: 'line',
+    align: 'center',
+    width: '100%',
+    height: '100%',
 
-    style : {
-      header : {
-        bg : 'blue'
+    style: {
+      header: {
+        bg: 'blue'
       },
-      cell   : {
-        bg     : 'black',
-        fg     : 'white',
-        width  : '100%',
-        height : '100%'
+      cell: {
+        bg: 'black',
+        fg: 'white',
+        width: '100%',
+        height: '100%'
       }
     }
   });
