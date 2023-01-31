@@ -31,7 +31,7 @@ program
  * validate that the package.json file and
  * node_modules folder exists.
  */
-const opts = getCLIOptions(program.parse(process.argv));
+const opts = getCLIOptions(program.parse().opts());
 const paths = makeVetPaths(opts);
 
 if (!fileExists(paths.packagePath)) {
